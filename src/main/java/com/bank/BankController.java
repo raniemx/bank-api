@@ -1,9 +1,7 @@
 package com.bank;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
 
@@ -113,4 +111,32 @@ public class BankController {
             return "Server Error: Unable to fetch transaction history.";
         }
     }
+
+    @DeleteMapping("/accounts/close")
+    public ResponseEntity<String> closeAccount(@RequestBody CloseAccountRequest request) {
+        try {
+            boolean success = AccountService.closeAccount(request.getAccountNumber(), request.getPin());
+
+            if(success) {
+                return ResponseEntity.ok("Account successfully closed. Thank you for banking with us.");
+            } else {
+                return ResponseEntity.badRequest().body("Could not close account due to a database issue");
+            }
+        } catch(IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch(Exception e) {
+            return ResponseEntity.status(500).body("An unexpected error occured: " + e.getMessage());
+        }
+    }
+}
+
+class CloseAccountRequest {
+    private int accountNumber;
+    private String pin;
+
+    //getters and setters
+    public int getAccountNumber() { return accountNumber;}
+    public void setAccountNumber(int accountNumber) {this.accountNumber = accountNumber;}
+    public String getPin() {return pin;}
+    public void setPin(String pin) {this.pin = pin;}
 }
