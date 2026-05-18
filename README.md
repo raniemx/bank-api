@@ -55,4 +55,4 @@ You can interact with this API locally using PowerShell or cURL.
 Building this application provided deep hands-on experience in:
 1. **Spring Boot Serialization:** Understanding how Spring uses reflection and getters/setters to map raw incoming JSON strings directly to secure Java objects.
 2. **Database Transaction Management:** Manually controlling connection auto-commits to handle relational updates across multiple tables safely.
-3. **Version Control:** Standard Git workflows including repository tracking, staging, atomic commits, and remote cloud deployment to GitHub.
+3. **Version Control:** Standard Git workflows including repository tracking, staging, atomic commits, and remote cloud deployment to GitHub. 
